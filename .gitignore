@@ -3,6 +3,7 @@ dist/
 
 # Ignore node
 node_modules/
+.yarn
 
 # Ignore Apple files
 .DS_Store
