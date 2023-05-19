@@ -1,0 +1,11 @@
+# Ignore distribution output
+dist/
+
+# Ignore node
+node_modules/
+
+# Ignore Apple files
+.DS_Store
+
+# Ignore IDE
+.idea
