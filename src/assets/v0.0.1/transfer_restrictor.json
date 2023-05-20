@@ -3,7 +3,7 @@
     "contractName": "TransferRestrictor",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xfb6CDB300451a1f934AE794b95485312863263f9",
+      "11155111": "0xfb6CDB300451a1f934AE794b95485312863263f9"
     },
     "abi": [
       {

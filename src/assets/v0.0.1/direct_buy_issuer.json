@@ -3,7 +3,7 @@
     "contractName": "DirectBuyIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x044fC0326593026C48401DadA82de63bd634A3cB",
+      "11155111": "0x044fC0326593026C48401DadA82de63bd634A3cB"
     },
     "abi": [
         {
