@@ -10,7 +10,10 @@
     "src"
   ],
   "scripts": {
-    "build": "./node_modules/.bin/tsc"
+    "ci:publish:build:gen-version": "echo $(date +%Y.%m.%d)-build-$(git rev-parse --short HEAD)",
+    "ci:publish:build:set-version": "npm version --no-git-tag-version",
+    "ci:publish:build:typescript": "./node_modules/.bin/tsc",
+    "ci:publish:login:typescript": "aws codeartifact login --tool npm --repository sbt --domain sbt-dev --namespace @dinari"
   },
   "devDependencies": {
     "@types/node": "^16.11.0",
@@ -22,5 +25,8 @@
   },
   "dependencies": {
     "semver": "^7.3.7"
+  },
+  "publishConfig": {
+    "registry": "https://sbt-dev-875886734390.d.codeartifact.us-west-2.amazonaws.com/npm/sbt/"
   }
 }
