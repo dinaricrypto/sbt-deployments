@@ -1,5 +1,6 @@
 # Ignore distribution output
 dist/
+dist-python/
 
 # Ignore node
 node_modules/

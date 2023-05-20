@@ -10,16 +10,20 @@
     "src"
   ],
   "scripts": {
+    "build:scripts": "./node_modules/.bin/tsc -p ./tsconfig-scripts.json",
     "ci:publish:build:gen-version": "echo $(date +%Y.%m.%d)-build-$(git rev-parse --short HEAD)",
     "ci:publish:build:set-version": "npm version --no-git-tag-version",
     "ci:publish:build:typescript": "./node_modules/.bin/tsc",
-    "ci:publish:login:typescript": "aws codeartifact login --tool npm --repository sbt --domain sbt-dev --namespace @dinari"
+    "ci:publish:login:typescript": "aws codeartifact login --tool npm --repository sbt --domain sbt-dev --namespace @dinari",
+    "ci:publish:build:python": "rm -rf dist-python && node scripts/generate_python.js $(date +%Y.%m.%d.rc%H%M%S)"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.178",
     "@types/node": "^16.11.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.6.0",
+    "lodash": "^4.17.21",
     "prettier": "^2.8.8",
     "typescript": "~4.9.3"
   },
