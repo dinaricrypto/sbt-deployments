@@ -15,7 +15,7 @@
     "ci:publish:build:set-version": "npm version --no-git-tag-version",
     "ci:publish:build:typescript": "./node_modules/.bin/tsc",
     "ci:publish:login:typescript": "aws codeartifact login --tool npm --repository sbt --domain sbt-dev --namespace @dinari",
-    "ci:publish:build:python": "rm -rf dist-python && node scripts/generate_python.js $(date +%Y.%m.%dr%H%M%S)"
+    "ci:publish:build:python": "rm -rf dist-python && node scripts/generate_python.js $(date +%Y.%m.%d.rc%H%M%S)"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.178",
