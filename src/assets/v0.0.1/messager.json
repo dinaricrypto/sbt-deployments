@@ -3,7 +3,7 @@
   "contractName": "Messager",
   "version": "0.0.1",
   "networkAddresses": {
-    "11155111": "0xecE3640432D4959BBF65b1F2f6cdeF07648C1f6f",
+    "11155111": "0xecE3640432D4959BBF65b1F2f6cdeF07648C1f6f"
   },
   "abi": [
     {
