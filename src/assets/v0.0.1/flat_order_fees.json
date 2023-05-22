@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0xd534a4e793C2559754352D0b16bD362Fd6411FBd",
+    "defaultAddress": "0x580DB6C6e949F26d7E3698Fc378777729CAA9aa7",
     "contractName": "FlatOrderFees",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xd534a4e793C2559754352D0b16bD362Fd6411FBd"
+      "11155111": "0x580DB6C6e949F26d7E3698Fc378777729CAA9aa7"
     },
     "abi": [
     {

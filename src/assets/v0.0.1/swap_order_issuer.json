@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0x201a0D4FE4A60BAE5d7B21a010930E77a2cE32a1",
+    "defaultAddress": "0xC29b4D981d8979584C7755e67e9b637E99241B20",
     "contractName": "SwapOrderIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x201a0D4FE4A60BAE5d7B21a010930E77a2cE32a1"
+      "11155111": "0xC29b4D981d8979584C7755e67e9b637E99241B20"
     },
     "abi": [
       {
@@ -761,6 +761,25 @@
       {
         "inputs": [
           {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getRemainingOrder",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
             "components": [
               {
                 "internalType": "address",
@@ -864,7 +883,7 @@
             "type": "bytes32"
           }
         ],
-        "name": "getUnspentAmount",
+        "name": "getTotalReceived",
         "outputs": [
           {
             "internalType": "uint256",

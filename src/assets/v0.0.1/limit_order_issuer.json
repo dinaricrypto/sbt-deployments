@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0xF6A5BF4E6b89b412a936c402c6B464ABb9fee55e",
+    "defaultAddress": "0xaaCdeD86f70e5a46B73E6706605aC41a7328055e",
     "contractName": "LimitOrderIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xF6A5BF4E6b89b412a936c402c6B464ABb9fee55e"
+      "11155111": "0xaaCdeD86f70e5a46B73E6706605aC41a7328055e"
     },
     "abi": [
       {
@@ -929,7 +929,7 @@
             "type": "bytes32"
           }
         ],
-        "name": "getUnfilledAmount",
+        "name": "getRemainingOrder",
         "outputs": [
           {
             "internalType": "uint256",

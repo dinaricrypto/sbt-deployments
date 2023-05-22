@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0xD862DE0FE34ADda50d81B93fEa2a9F7610EC1A27",
+    "defaultAddress": "0xabdD2C4f462475bA18c64EE5324a878cB5d03f69",
     "contractName": "DirectBuyIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xD862DE0FE34ADda50d81B93fEa2a9F7610EC1A27"
+      "11155111": "0xabdD2C4f462475bA18c64EE5324a878cB5d03f69"
     },
     "abi": [
       {
@@ -884,6 +884,25 @@
           }
         ],
         "name": "getRemainingOrder",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getTotalReceived",
         "outputs": [
           {
             "internalType": "uint256",
