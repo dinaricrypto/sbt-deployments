@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0x201a0D4FE4A60BAE5d7B21a010930E77a2cE32a1",
-    "contractName": "SwapOrderIssuer",
+    "defaultAddress": "0xF6A5BF4E6b89b412a936c402c6B464ABb9fee55e",
+    "contractName": "LimitOrderIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x201a0D4FE4A60BAE5d7B21a010930E77a2cE32a1"
+      "11155111": "0xF6A5BF4E6b89b412a936c402c6B464ABb9fee55e"
     },
     "abi": [
       {
@@ -39,6 +39,22 @@
       {
         "inputs": [],
         "name": "OrderTooSmall",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "y",
+            "type": "uint256"
+          }
+        ],
+        "name": "PRBMath_MulDiv18_Overflow",
         "type": "error"
       },
       {
@@ -503,11 +519,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
@@ -573,11 +594,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
@@ -588,12 +614,12 @@
           },
           {
             "internalType": "uint256",
-            "name": "spendAmount",
+            "name": "fillAmount",
             "type": "uint256"
           },
           {
             "internalType": "uint256",
-            "name": "receivedAmount",
+            "name": "",
             "type": "uint256"
           }
         ],
@@ -616,7 +642,12 @@
           },
           {
             "internalType": "uint256",
-            "name": "amount",
+            "name": "assetTokenQuantity",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
             "type": "uint256"
           }
         ],
@@ -626,9 +657,117 @@
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
           }
         ],
         "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderBridge.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderBridge.TIF",
+                "name": "tif",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fee",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct IOrderBridge.Order",
+            "name": "order",
+            "type": "tuple"
+          }
+        ],
+        "name": "getLimitOrderForOrder",
+        "outputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
+            "name": "",
+            "type": "tuple"
+          }
+        ],
+        "stateMutability": "pure",
         "type": "function"
       },
       {
@@ -733,11 +872,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
@@ -747,110 +891,12 @@
             "type": "bytes32"
           }
         ],
-        "name": "getOrderIdFromSwapOrder",
+        "name": "getOrderIdFromLimitOrder",
         "outputs": [
           {
             "internalType": "bytes32",
             "name": "",
             "type": "bytes32"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "bool",
-                "name": "sell",
-                "type": "bool"
-              },
-              {
-                "internalType": "enum IOrderBridge.OrderType",
-                "name": "orderType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "assetTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "paymentTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              },
-              {
-                "internalType": "enum IOrderBridge.TIF",
-                "name": "tif",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "fee",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct IOrderBridge.Order",
-            "name": "order",
-            "type": "tuple"
-          }
-        ],
-        "name": "getSwapOrderForOrder",
-        "outputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "bool",
-                "name": "sell",
-                "type": "bool"
-              },
-              {
-                "internalType": "uint256",
-                "name": "quantityIn",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
-            "name": "",
-            "type": "tuple"
           }
         ],
         "stateMutability": "pure",
@@ -864,7 +910,26 @@
             "type": "bytes32"
           }
         ],
-        "name": "getUnspentAmount",
+        "name": "getPaymentEscrow",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getUnfilledAmount",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1106,6 +1171,30 @@
         "type": "function"
       },
       {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "fillAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          }
+        ],
+        "name": "proceedsForFill",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
         "inputs": [],
         "name": "proxiableUUID",
         "outputs": [
@@ -1164,11 +1253,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
@@ -1209,11 +1303,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
@@ -1254,11 +1353,16 @@
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
-            "internalType": "struct SwapOrderIssuer.SwapOrder",
+            "internalType": "struct LimitOrderIssuer.LimitOrder",
             "name": "order",
             "type": "tuple"
           },
