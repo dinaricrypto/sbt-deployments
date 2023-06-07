@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0x801062930eD04ff3e901708F19e104cC909D6265",
-    "contractName": "TransferRestrictor",
+    "defaultAddress": "0x8984A42197dA8F7725EAbc3BB076e600AEc13c4f",
+    "contractName": "OrderFees",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x801062930eD04ff3e901708F19e104cC909D6265"
+      "11155111": "0x8984A42197dA8F7725EAbc3BB076e600AEc13c4f"
     },
     "abi": [
       {
@@ -12,6 +12,16 @@
             "internalType": "address",
             "name": "owner",
             "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "_perOrderFee",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "_percentageFeeRate",
+            "type": "uint64"
           }
         ],
         "stateMutability": "nonpayable",
@@ -19,57 +29,68 @@
       },
       {
         "inputs": [],
-        "name": "AccountBanned",
+        "name": "DecimalsTooLarge",
         "type": "error"
       },
       {
         "inputs": [],
-        "name": "AccountRestricted",
+        "name": "FeeTooLarge",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "y",
+            "type": "uint256"
+          }
+        ],
+        "name": "PRBMath_MulDiv18_Overflow",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "y",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "denominator",
+            "type": "uint256"
+          }
+        ],
+        "name": "PRBMath_MulDiv_Overflow",
         "type": "error"
       },
       {
         "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "Banned",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "KycReset",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
+            "indexed": false,
+            "internalType": "uint64",
+            "name": "perOrderFee",
+            "type": "uint64"
           },
           {
             "indexed": false,
-            "internalType": "enum ITransferRestrictor.KycType",
-            "name": "kycType",
-            "type": "uint8"
+            "internalType": "uint64",
+            "name": "percentageFeeRate",
+            "type": "uint64"
           }
         ],
-        "name": "KycSet",
+        "name": "FeeSet",
         "type": "event"
       },
       {
@@ -111,19 +132,6 @@
         "type": "event"
       },
       {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "UnBanned",
-        "type": "event"
-      },
-      {
         "inputs": [],
         "name": "acceptOwnership",
         "outputs": [],
@@ -134,79 +142,16 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "account",
+            "name": "token",
             "type": "address"
           }
         ],
-        "name": "ban",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "getUserInfo",
+        "name": "flatFeeForOrder",
         "outputs": [
           {
-            "components": [
-              {
-                "internalType": "enum ITransferRestrictor.KycType",
-                "name": "kycType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "bool",
-                "name": "isBanned",
-                "type": "bool"
-              }
-            ],
-            "internalType": "struct ITransferRestrictor.User",
-            "name": "user",
-            "type": "tuple"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "isBanned",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "isKyc",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
+            "internalType": "uint256",
+            "name": "flatFee",
+            "type": "uint256"
           }
         ],
         "stateMutability": "view",
@@ -240,6 +185,108 @@
       },
       {
         "inputs": [],
+        "name": "perOrderFee",
+        "outputs": [
+          {
+            "internalType": "uint64",
+            "name": "",
+            "type": "uint64"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "percentageFeeForValue",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "percentageFeeOnRemainingValue",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "percentageFeeRate",
+        "outputs": [
+          {
+            "internalType": "uint64",
+            "name": "",
+            "type": "uint64"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "remainingValue",
+            "type": "uint256"
+          }
+        ],
+        "name": "recoverInputValueFromFee",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "remainingValue",
+            "type": "uint256"
+          }
+        ],
+        "name": "recoverInputValueFromFeeOnRemaining",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -248,48 +295,17 @@
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "from",
-            "type": "address"
+            "internalType": "uint64",
+            "name": "_perOrderFee",
+            "type": "uint64"
           },
           {
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
+            "internalType": "uint64",
+            "name": "_percentageFeeRate",
+            "type": "uint64"
           }
         ],
-        "name": "requireNotRestricted",
-        "outputs": [],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "resetKyc",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          },
-          {
-            "internalType": "enum ITransferRestrictor.KycType",
-            "name": "kycType",
-            "type": "uint8"
-          }
-        ],
-        "name": "setKyc",
+        "name": "setFees",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -303,19 +319,6 @@
           }
         ],
         "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "unBan",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

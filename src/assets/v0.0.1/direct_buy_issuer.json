@@ -1,9 +1,9 @@
 {
-    "defaultAddress": "0xabdD2C4f462475bA18c64EE5324a878cB5d03f69",
+    "defaultAddress": "0xb3EB51606Ecaa36181994274460548be461EDC94",
     "contractName": "DirectBuyIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xabdD2C4f462475bA18c64EE5324a878cB5d03f69"
+      "11155111": "0xb3EB51606Ecaa36181994274460548be461EDC94"
     },
     "abi": [
       {
@@ -14,16 +14,6 @@
       {
         "inputs": [],
         "name": "DuplicateOrder",
-        "type": "error"
-      },
-      {
-        "inputs": [],
-        "name": "NewOwnerIsZeroAddress",
-        "type": "error"
-      },
-      {
-        "inputs": [],
-        "name": "NoHandoverRequest",
         "type": "error"
       },
       {
@@ -69,12 +59,7 @@
       },
       {
         "inputs": [],
-        "name": "Unauthorized",
-        "type": "error"
-      },
-      {
-        "inputs": [],
-        "name": "UnsupportedToken",
+        "name": "UnreturnedEscrow",
         "type": "error"
       },
       {
@@ -136,6 +121,106 @@
           }
         ],
         "name": "CancelRequested",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [],
+        "name": "DefaultAdminDelayChangeCanceled",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint48",
+            "name": "newDelay",
+            "type": "uint48"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint48",
+            "name": "effectSchedule",
+            "type": "uint48"
+          }
+        ],
+        "name": "DefaultAdminDelayChangeScheduled",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [],
+        "name": "DefaultAdminTransferCanceled",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint48",
+            "name": "acceptSchedule",
+            "type": "uint48"
+          }
+        ],
+        "name": "DefaultAdminTransferScheduled",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "orderId",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "EscrowReturned",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "orderId",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "EscrowTaken",
         "type": "event"
       },
       {
@@ -326,31 +411,6 @@
         "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
-            "internalType": "bytes32",
-            "name": "orderId",
-            "type": "bytes32"
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "recipient",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "OrderTaken",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
             "indexed": false,
             "internalType": "bool",
             "name": "paused",
@@ -365,12 +425,24 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "address",
-            "name": "pendingOwner",
-            "type": "address"
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "previousAdminRole",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
+            "internalType": "bytes32",
+            "name": "newAdminRole",
+            "type": "bytes32"
           }
         ],
-        "name": "OwnershipHandoverCanceled",
+        "name": "RoleAdminChanged",
         "type": "event"
       },
       {
@@ -378,31 +450,24 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "address",
-            "name": "pendingOwner",
-            "type": "address"
-          }
-        ],
-        "name": "OwnershipHandoverRequested",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
           {
             "indexed": true,
             "internalType": "address",
-            "name": "oldOwner",
+            "name": "account",
             "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
-            "name": "newOwner",
+            "name": "sender",
             "type": "address"
           }
         ],
-        "name": "OwnershipTransferred",
+        "name": "RoleGranted",
         "type": "event"
       },
       {
@@ -410,18 +475,24 @@
         "inputs": [
           {
             "indexed": true,
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "indexed": true,
             "internalType": "address",
-            "name": "user",
+            "name": "account",
             "type": "address"
           },
           {
             "indexed": true,
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
           }
         ],
-        "name": "RolesUpdated",
+        "name": "RoleRevoked",
         "type": "event"
       },
       {
@@ -455,9 +526,9 @@
         "name": "ADMIN_ROLE",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "bytes32",
             "name": "",
-            "type": "uint256"
+            "type": "bytes32"
           }
         ],
         "stateMutability": "view",
@@ -468,9 +539,22 @@
         "name": "ASSETTOKEN_ROLE",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "bytes32",
             "name": "",
-            "type": "uint256"
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "DEFAULT_ADMIN_ROLE",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
           }
         ],
         "stateMutability": "view",
@@ -481,9 +565,9 @@
         "name": "OPERATOR_ROLE",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "bytes32",
             "name": "",
-            "type": "uint256"
+            "type": "bytes32"
           }
         ],
         "stateMutability": "view",
@@ -494,12 +578,39 @@
         "name": "PAYMENTTOKEN_ROLE",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "bytes32",
             "name": "",
-            "type": "uint256"
+            "type": "bytes32"
           }
         ],
         "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "acceptDefaultAdminTransfer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address"
+          }
+        ],
+        "name": "beginDefaultAdminTransfer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "cancelDefaultAdminTransfer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -527,7 +638,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -548,23 +659,55 @@
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "cancelOwnershipHandover",
+        "inputs": [
+          {
+            "internalType": "uint48",
+            "name": "newDelay",
+            "type": "uint48"
+          }
+        ],
+        "name": "changeDefaultAdminDelay",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
-        "inputs": [
+        "inputs": [],
+        "name": "defaultAdmin",
+        "outputs": [
           {
             "internalType": "address",
-            "name": "pendingOwner",
+            "name": "",
             "type": "address"
           }
         ],
-        "name": "completeOwnershipHandover",
-        "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "defaultAdminDelay",
+        "outputs": [
+          {
+            "internalType": "uint48",
+            "name": "",
+            "type": "uint48"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "defaultAdminDelayIncreaseWait",
+        "outputs": [
+          {
+            "internalType": "uint48",
+            "name": "",
+            "type": "uint48"
+          }
+        ],
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -592,7 +735,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -603,7 +746,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "spendAmount",
+            "name": "fillAmount",
             "type": "uint256"
           },
           {
@@ -620,101 +763,8 @@
       {
         "inputs": [
           {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "bool",
-                "name": "sell",
-                "type": "bool"
-              },
-              {
-                "internalType": "enum IOrderBridge.OrderType",
-                "name": "orderType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "assetTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "paymentTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              },
-              {
-                "internalType": "enum IOrderBridge.TIF",
-                "name": "tif",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "fee",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct IOrderBridge.Order",
-            "name": "order",
-            "type": "tuple"
-          }
-        ],
-        "name": "getBuyOrderFromOrder",
-        "outputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "quantityIn",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
-            "name": "",
-            "type": "tuple"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
             "internalType": "address",
-            "name": "assetToken",
+            "name": "token",
             "type": "address"
           },
           {
@@ -724,6 +774,54 @@
           }
         ],
         "name": "getFeesForOrder",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "flatFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "percentageFee",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "orderValue",
+            "type": "uint256"
+          }
+        ],
+        "name": "getInputValueForOrderValue",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getOrderEscrow",
         "outputs": [
           {
             "internalType": "uint256",
@@ -835,7 +933,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -845,7 +943,7 @@
             "type": "bytes32"
           }
         ],
-        "name": "getOrderIdFromBuyOrder",
+        "name": "getOrderIdFromOrderRequest",
         "outputs": [
           {
             "internalType": "bytes32",
@@ -859,20 +957,94 @@
       {
         "inputs": [
           {
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderBridge.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderBridge.TIF",
+                "name": "tif",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fee",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct IOrderBridge.Order",
+            "name": "order",
+            "type": "tuple"
           }
         ],
-        "name": "getRemainingEscrow",
+        "name": "getOrderRequestForOrder",
         "outputs": [
           {
-            "internalType": "uint256",
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "quantityIn",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "",
-            "type": "uint256"
+            "type": "tuple"
           }
         ],
-        "stateMutability": "view",
+        "stateMutability": "pure",
         "type": "function"
       },
       {
@@ -889,6 +1061,25 @@
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          }
+        ],
+        "name": "getRoleAdmin",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
           }
         ],
         "stateMutability": "view",
@@ -916,63 +1107,39 @@
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
           },
           {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
           }
         ],
-        "name": "grantRoles",
+        "name": "grantRole",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
           },
           {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
           }
         ],
-        "name": "hasAllRoles",
+        "name": "hasRole",
         "outputs": [
           {
             "internalType": "bool",
-            "name": "result",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
-          }
-        ],
-        "name": "hasAnyRole",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "result",
+            "name": "",
             "type": "bool"
           }
         ],
@@ -1033,7 +1200,7 @@
         "outputs": [
           {
             "internalType": "bytes[]",
-            "name": "",
+            "name": "results",
             "type": "bytes[]"
           }
         ],
@@ -1080,51 +1247,13 @@
         "type": "function"
       },
       {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
-          }
-        ],
-        "name": "ordinalsFromRoles",
-        "outputs": [
-          {
-            "internalType": "uint8[]",
-            "name": "ordinals",
-            "type": "uint8[]"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
         "inputs": [],
         "name": "owner",
         "outputs": [
           {
             "internalType": "address",
-            "name": "result",
+            "name": "",
             "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "pendingOwner",
-            "type": "address"
-          }
-        ],
-        "name": "ownershipHandoverExpiresAt",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "result",
-            "type": "uint256"
           }
         ],
         "stateMutability": "view",
@@ -1132,12 +1261,35 @@
       },
       {
         "inputs": [],
-        "name": "ownershipHandoverValidFor",
+        "name": "pendingDefaultAdmin",
         "outputs": [
           {
-            "internalType": "uint64",
-            "name": "",
-            "type": "uint64"
+            "internalType": "address",
+            "name": "newAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "uint48",
+            "name": "schedule",
+            "type": "uint48"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "pendingDefaultAdminDelay",
+        "outputs": [
+          {
+            "internalType": "uint48",
+            "name": "newDelay",
+            "type": "uint48"
+          },
+          {
+            "internalType": "uint48",
+            "name": "schedule",
+            "type": "uint48"
           }
         ],
         "stateMutability": "view",
@@ -1157,23 +1309,21 @@
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
         "inputs": [
           {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
           }
         ],
-        "name": "renounceRoles",
+        "name": "renounceRole",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -1201,7 +1351,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -1241,7 +1391,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -1281,7 +1431,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -1289,6 +1439,11 @@
             "internalType": "bytes32",
             "name": "salt",
             "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "permitToken",
+            "type": "address"
           },
           {
             "internalType": "uint256",
@@ -1322,66 +1477,73 @@
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "requestOwnershipHandover",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "user",
-            "type": "address"
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "quantityIn",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct OrderProcessor.OrderRequest",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "salt",
+            "type": "bytes32"
           },
           {
             "internalType": "uint256",
-            "name": "roles",
+            "name": "amount",
             "type": "uint256"
           }
         ],
-        "name": "revokeRoles",
+        "name": "returnEscrow",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "inputs": [
           {
-            "internalType": "uint8[]",
-            "name": "ordinals",
-            "type": "uint8[]"
-          }
-        ],
-        "name": "rolesFromOrdinals",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
           {
             "internalType": "address",
-            "name": "user",
+            "name": "account",
             "type": "address"
           }
         ],
-        "name": "rolesOf",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "roles",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
+        "name": "revokeRole",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "rollbackDefaultAdminDelay",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -1426,6 +1588,25 @@
       {
         "inputs": [
           {
+            "internalType": "bytes4",
+            "name": "interfaceId",
+            "type": "bytes4"
+          }
+        ],
+        "name": "supportsInterface",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
             "components": [
               {
                 "internalType": "address",
@@ -1448,7 +1629,7 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct DirectBuyIssuer.BuyOrder",
+            "internalType": "struct OrderProcessor.OrderRequest",
             "name": "order",
             "type": "tuple"
           },
@@ -1463,22 +1644,9 @@
             "type": "uint256"
           }
         ],
-        "name": "takeOrder",
+        "name": "takeEscrow",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "payable",
         "type": "function"
       },
       {
