@@ -1,20 +1,17 @@
-import BridgedTokenFactory001 from "./assets/v0.0.1/bridged_token_factory.json";
+import BuyOrderIssuer001 from "./assets/v0.0.1/buy_order_issuer.json";
 import DirectBuyIssuer001 from "./assets/v0.0.1/direct_buy_issuer.json";
-import FlatOrderFees001 from "./assets/v0.0.1/flat_order_fees.json";
-import Messager001 from "./assets/v0.0.1/messager.json";
-import SwapOrderIssuer001 from "./assets/v0.0.1/swap_order_issuer.json";
+import OrderFees001 from "./assets/v0.0.1/order_fees.json";
+import SellOrderProcessor001 from "./assets/v0.0.1/sell_order_processor.json";
 import TransferRestrictor001 from "./assets/v0.0.1/transfer_restrictor.json";
 import { DeploymentFilter, SingletonDeployment } from "./types";
 import { findDeployment } from "./utils";
 
-const bridgedTokenFactoryDeployments: SingletonDeployment[] = [
-  BridgedTokenFactory001,
-];
+const buyOrderIssuerDeployments: SingletonDeployment[] = [BuyOrderIssuer001];
 
-export const getBridgedTokenFactoryDeployment = (
+export const getBuyOrderIssuerDeployment = (
   filter?: DeploymentFilter
 ): SingletonDeployment | undefined => {
-  return findDeployment(filter, bridgedTokenFactoryDeployments);
+  return findDeployment(filter, buyOrderIssuerDeployments);
 };
 
 const directBuyIssuerDeployments: SingletonDeployment[] = [DirectBuyIssuer001];
@@ -25,28 +22,22 @@ export const getDirectBuyIssuerDeployment = (
   return findDeployment(filter, directBuyIssuerDeployments);
 };
 
-const flatOrderFeesDeployments: SingletonDeployment[] = [FlatOrderFees001];
+const orderFeesDeployments: SingletonDeployment[] = [OrderFees001];
 
-export const getFlatOrderFeesDeployment = (
+export const getOrderFeesDeployment = (
   filter?: DeploymentFilter
 ): SingletonDeployment | undefined => {
-  return findDeployment(filter, flatOrderFeesDeployments);
+  return findDeployment(filter, orderFeesDeployments);
 };
 
-const messagerDeployments: SingletonDeployment[] = [Messager001];
+const sellOrderIssuerDeployments: SingletonDeployment[] = [
+  SellOrderProcessor001,
+];
 
-export const getMessagerDeployment = (
+export const getSellOrderIssuerDeployment = (
   filter?: DeploymentFilter
 ): SingletonDeployment | undefined => {
-  return findDeployment(filter, messagerDeployments);
-};
-
-const swapOrderIssuerDeployments: SingletonDeployment[] = [SwapOrderIssuer001];
-
-export const getSwapOrderIssuerDeployment = (
-  filter?: DeploymentFilter
-): SingletonDeployment | undefined => {
-  return findDeployment(filter, swapOrderIssuerDeployments);
+  return findDeployment(filter, sellOrderIssuerDeployments);
 };
 
 const transferRestrictorDeployments: SingletonDeployment[] = [

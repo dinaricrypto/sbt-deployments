@@ -1,0 +1,30 @@
+name: test-build
+
+on: [ push ]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+
+      - name: Enable Node Corepack
+        run: corepack enable
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Build Typescript library
+        run: yarn ci:publish:build:typescript
+
+      - name: Build scripts for packaging Python
+        run: yarn build:scripts
+
+      - name: Build Python library
+        run: yarn ci:publish:build:python
