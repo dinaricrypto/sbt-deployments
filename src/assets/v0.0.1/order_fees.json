@@ -1,9 +1,10 @@
 {
-    "defaultAddress": "0x8984A42197dA8F7725EAbc3BB076e600AEc13c4f",
+    "defaultAddress": "0x2c5a99123B9DF79762851eCD10e6dA541085a7fA",
     "contractName": "OrderFees",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x8984A42197dA8F7725EAbc3BB076e600AEc13c4f"
+      "11155111": "0x8984A42197dA8F7725EAbc3BB076e600AEc13c4f",
+      "42161": "0x2c5a99123B9DF79762851eCD10e6dA541085a7fA"
     },
     "abi": [
       {
@@ -216,25 +217,6 @@
         "type": "function"
       },
       {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "percentageFeeOnRemainingValue",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "inputs": [],
         "name": "percentageFeeRate",
         "outputs": [
@@ -255,26 +237,7 @@
             "type": "uint256"
           }
         ],
-        "name": "recoverInputValueFromFee",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "remainingValue",
-            "type": "uint256"
-          }
-        ],
-        "name": "recoverInputValueFromFeeOnRemaining",
+        "name": "recoverInputValueFromRemaining",
         "outputs": [
           {
             "internalType": "uint256",

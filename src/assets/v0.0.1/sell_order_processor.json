@@ -1,9 +1,10 @@
 {
-    "defaultAddress": "0x6eeA5ec6ba028c32c85D815f64c97261fCB1305f",
+    "defaultAddress": "0x17C01a17eBa2bE1AbE93D54b8a9c627CB0875792",
     "contractName": "SellOrderProcessor",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x6eeA5ec6ba028c32c85D815f64c97261fCB1305f"
+      "11155111": "0x6eeA5ec6ba028c32c85D815f64c97261fCB1305f",
+      "42161": "0x17C01a17eBa2bE1AbE93D54b8a9c627CB0875792"
     },
     "abi": [
       {
@@ -18,7 +19,7 @@
       },
       {
         "inputs": [],
-        "name": "NotRecipient",
+        "name": "NotRequester",
         "type": "error"
       },
       {
@@ -558,7 +559,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -655,7 +656,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -800,7 +801,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1237,7 +1238,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1277,7 +1278,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1317,7 +1318,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {

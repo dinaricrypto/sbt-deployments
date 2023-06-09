@@ -1,9 +1,10 @@
 {
-    "defaultAddress": "0xEc694d36D3109c8eCCBDeC32f7723949CCfF1c8D",
+    "defaultAddress": "0xca1F1CB5eD09C33E6D618E476AcaF1C22525D636",
     "contractName": "BuyOrderIssuer",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xEc694d36D3109c8eCCBDeC32f7723949CCfF1c8D"
+      "11155111": "0xEc694d36D3109c8eCCBDeC32f7723949CCfF1c8D",
+      "42161": "0xca1F1CB5eD09C33E6D618E476AcaF1C22525D636"
     },
     "abi": [
       {
@@ -18,7 +19,7 @@
       },
       {
         "inputs": [],
-        "name": "NotRecipient",
+        "name": "NotRequester",
         "type": "error"
       },
       {
@@ -584,7 +585,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -681,7 +682,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -714,7 +715,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "amount",
+            "name": "inputValue",
             "type": "uint256"
           }
         ],
@@ -751,7 +752,17 @@
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "",
+            "name": "inputValue",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "flatFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "percentageFee",
             "type": "uint256"
           }
         ],
@@ -860,7 +871,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1278,7 +1289,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1318,7 +1329,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
@@ -1358,7 +1369,7 @@
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "order",
+            "name": "orderRequest",
             "type": "tuple"
           },
           {
