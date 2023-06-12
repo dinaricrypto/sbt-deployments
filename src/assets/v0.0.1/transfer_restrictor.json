@@ -1,10 +1,10 @@
 {
-    "defaultAddress": "0xc63ac73EcD95a2D6Cb313757378D6c16c760e712",
+    "defaultAddress": "0xec3b79d771b47a0f5db925d7faf793605f5560ce",
     "contractName": "TransferRestrictor",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x801062930eD04ff3e901708F19e104cC909D6265",
-      "42161": "0xc63ac73EcD95a2D6Cb313757378D6c16c760e712"
+      "11155111": "0x53ee3b23acad59ade443d259466d262a90577826",
+      "42161": "0xec3b79d771b47a0f5db925d7faf793605f5560ce"
     },
     "abi": [
       {
@@ -20,58 +20,8 @@
       },
       {
         "inputs": [],
-        "name": "AccountBanned",
-        "type": "error"
-      },
-      {
-        "inputs": [],
         "name": "AccountRestricted",
         "type": "error"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "Banned",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "KycReset",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "enum ITransferRestrictor.KycType",
-            "name": "kycType",
-            "type": "uint8"
-          }
-        ],
-        "name": "KycSet",
-        "type": "event"
       },
       {
         "anonymous": false,
@@ -121,7 +71,20 @@
             "type": "address"
           }
         ],
-        "name": "UnBanned",
+        "name": "Restricted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "Unrestricted",
         "type": "event"
       },
       {
@@ -135,74 +98,11 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "ban",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "getUserInfo",
-        "outputs": [
-          {
-            "components": [
-              {
-                "internalType": "enum ITransferRestrictor.KycType",
-                "name": "kycType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "bool",
-                "name": "isBanned",
-                "type": "bool"
-              }
-            ],
-            "internalType": "struct ITransferRestrictor.User",
-            "name": "user",
-            "type": "tuple"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "isBanned",
-        "outputs": [
-          {
-            "internalType": "bool",
             "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
             "type": "address"
           }
         ],
-        "name": "isKyc",
+        "name": "blacklist",
         "outputs": [
           {
             "internalType": "bool",
@@ -272,25 +172,7 @@
             "type": "address"
           }
         ],
-        "name": "resetKyc",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          },
-          {
-            "internalType": "enum ITransferRestrictor.KycType",
-            "name": "kycType",
-            "type": "uint8"
-          }
-        ],
-        "name": "setKyc",
+        "name": "restrict",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -316,7 +198,7 @@
             "type": "address"
           }
         ],
-        "name": "unBan",
+        "name": "unrestrict",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
