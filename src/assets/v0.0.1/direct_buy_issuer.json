@@ -266,7 +266,7 @@
         "anonymous": false,
         "inputs": [
           {
-            "indexed": false,
+            "indexed": true,
             "internalType": "contract IOrderFees",
             "name": "orderFees",
             "type": "address"
@@ -637,6 +637,11 @@
                 "internalType": "uint256",
                 "name": "quantityIn",
                 "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
@@ -733,6 +738,11 @@
               {
                 "internalType": "uint256",
                 "name": "quantityIn",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
@@ -942,6 +952,11 @@
                 "internalType": "uint256",
                 "name": "quantityIn",
                 "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
@@ -1047,6 +1062,11 @@
               {
                 "internalType": "uint256",
                 "name": "quantityIn",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
@@ -1360,6 +1380,11 @@
                 "internalType": "uint256",
                 "name": "quantityIn",
                 "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
               }
             ],
             "internalType": "struct OrderProcessor.OrderRequest",
@@ -1399,6 +1424,11 @@
               {
                 "internalType": "uint256",
                 "name": "quantityIn",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
@@ -1440,75 +1470,10 @@
                 "internalType": "uint256",
                 "name": "quantityIn",
                 "type": "uint256"
-              }
-            ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
-            "type": "tuple"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "address",
-            "name": "permitToken",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "value",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "deadline",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint8",
-            "name": "v",
-            "type": "uint8"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "r",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "s",
-            "type": "bytes32"
-          }
-        ],
-        "name": "requestOrderWithPermit",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
               },
               {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "price",
                 "type": "uint256"
               }
             ],
@@ -1553,6 +1518,44 @@
       {
         "inputs": [],
         "name": "rollbackDefaultAdminDelay",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          }
+        ],
+        "name": "selfPermit",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1637,6 +1640,11 @@
               {
                 "internalType": "uint256",
                 "name": "quantityIn",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
                 "type": "uint256"
               }
             ],
