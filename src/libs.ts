@@ -1,5 +1,6 @@
 import BuyOrderIssuer001 from "./assets/v0.0.1/buy_order_issuer.json";
 import DirectBuyIssuer001 from "./assets/v0.0.1/direct_buy_issuer.json";
+import DividendAirDrop001 from "./assets/v0.0.1/dividend_airdrop.json";
 import OrderFees001 from "./assets/v0.0.1/order_fees.json";
 import SellOrderProcessor001 from "./assets/v0.0.1/sell_order_processor.json";
 import TransferRestrictor001 from "./assets/v0.0.1/transfer_restrictor.json";
@@ -20,6 +21,14 @@ export const getDirectBuyIssuerDeployment = (
   filter?: DeploymentFilter
 ): SingletonDeployment | undefined => {
   return findDeployment(filter, directBuyIssuerDeployments);
+};
+
+const dividendAirdropDeployments: SingletonDeployment[] = [DividendAirDrop001];
+
+export const getDividendAirdropDeployment = (
+  filter?: DeploymentFilter
+): SingletonDeployment | undefined => {
+  return findDeployment(filter, dividendAirdropDeployments);
 };
 
 const orderFeesDeployments: SingletonDeployment[] = [OrderFees001];
