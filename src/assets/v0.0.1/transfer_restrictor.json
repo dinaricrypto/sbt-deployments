@@ -1,10 +1,10 @@
 {
-    "defaultAddress": "0xec3b79d771b47a0f5db925d7faf793605f5560ce",
+    "defaultAddress": "0xEC3B79d771b47a0F5DB925D7FAf793605F5560CE",
     "contractName": "TransferRestrictor",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x53ee3b23acad59ade443d259466d262a90577826",
-      "42161": "0xec3b79d771b47a0f5db925d7faf793605f5560ce"
+      "11155111": "0x53eE3b23AcaD59AdE443D259466d262a90577826",
+      "42161": "0xEC3B79d771b47a0F5DB925D7FAf793605F5560CE"
     },
     "abi": [
       {
