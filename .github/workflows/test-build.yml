@@ -17,6 +17,11 @@ jobs:
       - name: Enable Node Corepack
         run: corepack enable
 
+      - name: JSON lint assets
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/json-lint/master/pipeline.sh)
+        env:
+          EXCLUDE_FILES: "package.json,tsconfig.json,tsconfig-scripts.json"
+
       - name: Install packages
         run: yarn install
 
@@ -28,3 +33,4 @@ jobs:
 
       - name: Build Python library
         run: yarn ci:publish:build:python
+
