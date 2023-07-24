@@ -1,158 +1,124 @@
 {
-    "defaultAddress": "0xc4d54EB7E160542F25212753c9fDbB0bb1Eb4C27",
+    "defaultAddress": "0x968BDa8C511C97CD30DD9C812966d4Da69Cf6269",
     "contractName": "DividendDistribution",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xc4d54EB7E160542F25212753c9fDbB0bb1Eb4C27"
+      "11155111": "0x968BDa8C511C97CD30DD9C812966d4Da69Cf6269"
     },
     "abi": [
       {
         "inputs": [],
-        "name": "AlreadyClaimed",
-        "type": "error"
+        "type": "error",
+        "name": "DistributionEnded"
       },
       {
         "inputs": [],
-        "name": "DistributionEnded",
-        "type": "error"
+        "type": "error",
+        "name": "DistributionRunning"
       },
       {
         "inputs": [],
-        "name": "DistributionRunning",
-        "type": "error"
+        "type": "error",
+        "name": "EndTimeInPast"
       },
       {
         "inputs": [],
-        "name": "EndTimeInPast",
-        "type": "error"
+        "type": "error",
+        "name": "NotReclaimable"
       },
       {
-        "inputs": [],
-        "name": "InvalidProof",
-        "type": "error"
-      },
-      {
-        "inputs": [],
-        "name": "NotReclaimable",
-        "type": "error"
-      },
-      {
-        "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
             "internalType": "uint256",
             "name": "distributionId",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": true
           },
           {
-            "indexed": true,
             "internalType": "address",
             "name": "account",
-            "type": "address"
+            "type": "address",
+            "indexed": true
           },
           {
-            "indexed": false,
             "internalType": "uint256",
             "name": "amount",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": false
           }
         ],
+        "type": "event",
         "name": "Distributed",
-        "type": "event"
+        "anonymous": false
       },
       {
-        "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
             "internalType": "uint256",
             "name": "distributionId",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": true
           },
           {
-            "indexed": false,
             "internalType": "uint256",
             "name": "totalReclaimed",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": false
           }
         ],
+        "type": "event",
         "name": "DistributionReclaimed",
-        "type": "event"
+        "anonymous": false
       },
       {
-        "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
             "internalType": "uint256",
             "name": "distributionId",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": true
           },
           {
-            "indexed": false,
             "internalType": "uint256",
             "name": "totalDistribution",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": false
           },
           {
-            "indexed": false,
             "internalType": "uint256",
             "name": "startDate",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": false
           },
           {
-            "indexed": false,
             "internalType": "uint256",
             "name": "endDate",
-            "type": "uint256"
+            "type": "uint256",
+            "indexed": false
           }
         ],
+        "type": "event",
         "name": "NewDistributionCreated",
-        "type": "event"
+        "anonymous": false
       },
       {
-        "anonymous": false,
         "inputs": [
           {
-            "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
-            "type": "address"
+            "type": "address",
+            "indexed": true
           },
           {
-            "indexed": true,
             "internalType": "address",
             "name": "newOwner",
-            "type": "address"
+            "type": "address",
+            "indexed": true
           }
         ],
+        "type": "event",
         "name": "OwnershipTransferred",
-        "type": "event"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "claimed",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        "anonymous": false
       },
       {
         "inputs": [
@@ -160,11 +126,6 @@
             "internalType": "address",
             "name": "token",
             "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "merkleRoot",
-            "type": "bytes32"
           },
           {
             "internalType": "uint256",
@@ -177,6 +138,8 @@
             "type": "uint256"
           }
         ],
+        "stateMutability": "nonpayable",
+        "type": "function",
         "name": "createDistribution",
         "outputs": [
           {
@@ -184,9 +147,7 @@
             "name": "distributionId",
             "type": "uint256"
           }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
+        ]
       },
       {
         "inputs": [
@@ -204,17 +165,11 @@
             "internalType": "uint256",
             "name": "_amount",
             "type": "uint256"
-          },
-          {
-            "internalType": "bytes32[]",
-            "name": "proof",
-            "type": "bytes32[]"
           }
         ],
-        "name": "distribute",
-        "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
+        "type": "function",
+        "name": "distribute"
       },
       {
         "inputs": [
@@ -224,17 +179,14 @@
             "type": "uint256"
           }
         ],
+        "stateMutability": "view",
+        "type": "function",
         "name": "distributions",
         "outputs": [
           {
             "internalType": "address",
             "name": "token",
             "type": "address"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "merkleRoot",
-            "type": "bytes32"
           },
           {
             "internalType": "uint256",
@@ -246,36 +198,12 @@
             "name": "endTime",
             "type": "uint256"
           }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "_user",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "_amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "hashLeaf",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
+        ]
       },
       {
         "inputs": [],
+        "stateMutability": "view",
+        "type": "function",
         "name": "nextDistributionId",
         "outputs": [
           {
@@ -283,12 +211,12 @@
             "name": "",
             "type": "uint256"
           }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        ]
       },
       {
         "inputs": [],
+        "stateMutability": "view",
+        "type": "function",
         "name": "owner",
         "outputs": [
           {
@@ -296,9 +224,7 @@
             "name": "",
             "type": "address"
           }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        ]
       },
       {
         "inputs": [
@@ -308,17 +234,15 @@
             "type": "uint256"
           }
         ],
-        "name": "reclaimDistribution",
-        "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
+        "type": "function",
+        "name": "reclaimDistribution"
       },
       {
         "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
+        "type": "function",
+        "name": "renounceOwnership"
       },
       {
         "inputs": [
@@ -328,10 +252,9 @@
             "type": "address"
           }
         ],
-        "name": "transferOwnership",
-        "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function"
+        "type": "function",
+        "name": "transferOwnership"
       }
     ]
 }
