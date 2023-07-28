@@ -1,54 +1,17 @@
 {
-    "defaultAddress": "0x48366e4ADd46AcCCAb7262287AF33509B8290899",
+    "defaultAddress": "0x91C03A020d044E2E5c8069AA3Ed4e0a41097D3cD",
     "contractName": "Forwarder",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x48366e4ADd46AcCCAb7262287AF33509B8290899"
+      "11155111": "0x91C03A020d044E2E5c8069AA3Ed4e0a41097D3cD"
     },
     "abi": [
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "_relayer",
-            "type": "address"
-          },
-          {
             "internalType": "uint256",
             "name": "_priceRecencyThreshold",
             "type": "uint256"
-          },
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "buyOrderIssuer",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "directBuyIssuer",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "sellOrderProcessor",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "limitBuyIssuer",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "limitSellProcessor",
-                "type": "address"
-              }
-            ],
-            "internalType": "struct Forwarder.SupportedModules",
-            "name": "_supportedModules",
-            "type": "tuple"
           }
         ],
         "stateMutability": "nonpayable",
@@ -247,6 +210,12 @@
             "internalType": "address",
             "name": "relayer",
             "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "bool",
+            "name": "isRelayer",
+            "type": "bool"
           }
         ],
         "name": "RelayerSet",
@@ -561,6 +530,25 @@
             "type": "address"
           }
         ],
+        "name": "isRelayer",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
         "name": "isTrustedOracle",
         "outputs": [
           {
@@ -703,19 +691,6 @@
       },
       {
         "inputs": [],
-        "name": "relayer",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -848,6 +823,11 @@
             "internalType": "address",
             "name": "newRelayer",
             "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "_isRelayer",
+            "type": "bool"
           }
         ],
         "name": "setRelayer",
