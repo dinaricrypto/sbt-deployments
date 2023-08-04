@@ -3,7 +3,8 @@
     "contractName": "DividendDistribution",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0xB584B40f19aC35a55b8364F77A1c8703ded82126"
+      "11155111": "0xB584B40f19aC35a55b8364F77A1c8703ded82126",
+      "42161": "0x7e66Ea8E425F0669f651373C85Df8415eb38e7FC"
     },
     "abi": [
       {
