@@ -1,17 +1,17 @@
 {
-    "defaultAddress": "0x91C03A020d044E2E5c8069AA3Ed4e0a41097D3cD",
+    "defaultAddress": "0x1C33D3C4126f077aF4AA0a896491b040d54E0593",
     "contractName": "Forwarder",
     "version": "0.0.1",
     "networkAddresses": {
-      "11155111": "0x91C03A020d044E2E5c8069AA3Ed4e0a41097D3cD"
+      "11155111": "0x1C33D3C4126f077aF4AA0a896491b040d54E0593"
     },
     "abi": [
       {
         "inputs": [
           {
-            "internalType": "uint256",
+            "internalType": "uint64",
             "name": "_priceRecencyThreshold",
-            "type": "uint256"
+            "type": "uint64"
           }
         ],
         "stateMutability": "nonpayable",
@@ -342,9 +342,9 @@
                 "type": "bytes"
               },
               {
-                "internalType": "uint256",
+                "internalType": "uint64",
                 "name": "deadline",
-                "type": "uint256"
+                "type": "uint64"
               },
               {
                 "internalType": "uint256",
@@ -364,9 +364,9 @@
                     "type": "uint256"
                   },
                   {
-                    "internalType": "uint256",
+                    "internalType": "uint64",
                     "name": "timestamp",
-                    "type": "uint256"
+                    "type": "uint64"
                   },
                   {
                     "internalType": "uint256",
@@ -419,9 +419,9 @@
                 "type": "bytes"
               },
               {
-                "internalType": "uint256",
+                "internalType": "uint64",
                 "name": "deadline",
-                "type": "uint256"
+                "type": "uint64"
               },
               {
                 "internalType": "uint256",
@@ -441,9 +441,9 @@
                     "type": "uint256"
                   },
                   {
-                    "internalType": "uint256",
+                    "internalType": "uint64",
                     "name": "timestamp",
-                    "type": "uint256"
+                    "type": "uint64"
                   },
                   {
                     "internalType": "uint256",
@@ -645,9 +645,9 @@
                 "type": "uint256"
               },
               {
-                "internalType": "uint256",
+                "internalType": "uint64",
                 "name": "timestamp",
-                "type": "uint256"
+                "type": "uint64"
               },
               {
                 "internalType": "uint256",
@@ -681,9 +681,9 @@
         "name": "priceRecencyThreshold",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "uint64",
             "name": "",
-            "type": "uint256"
+            "type": "uint64"
           }
         ],
         "stateMutability": "view",
@@ -807,9 +807,9 @@
       {
         "inputs": [
           {
-            "internalType": "uint256",
+            "internalType": "uint64",
             "name": "threshold",
-            "type": "uint256"
+            "type": "uint64"
           }
         ],
         "name": "setPriceRecencyThreshold",
