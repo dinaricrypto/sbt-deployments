@@ -1,13 +1,43 @@
 {
-    "defaultAddress": "0x17C01a17eBa2bE1AbE93D54b8a9c627CB0875792",
-    "contractName": "SellOrderProcessor",
-    "version": "0.0.1",
+    "defaultAddress": "0x1754422ef9910572cCde378a9C07d717eC8D48A0",
+    "contractName": "BuyProcessor",
+    "version": "0.1",
     "networkAddresses": {
-      "11155111": "0x6eeA5ec6ba028c32c85D815f64c97261fCB1305f",
-      "31337": "0x6eeA5ec6ba028c32c85D815f64c97261fCB1305f",
-      "42161": "0x17C01a17eBa2bE1AbE93D54b8a9c627CB0875792"
+      "11155111": "0x1754422ef9910572cCde378a9C07d717eC8D48A0",
+      "31337": "0x1754422ef9910572cCde378a9C07d717eC8D48A0"
     },
     "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "_owner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "_treasury",
+            "type": "address"
+          },
+          {
+            "internalType": "uint64",
+            "name": "_perOrderFee",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint24",
+            "name": "_percentageFeeRate",
+            "type": "uint24"
+          },
+          {
+            "internalType": "contract ITokenLockCheck",
+            "name": "_tokenLockCheck",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
       {
         "inputs": [],
         "name": "AmountTooLarge",
@@ -15,7 +45,27 @@
       },
       {
         "inputs": [],
-        "name": "DuplicateOrder",
+        "name": "Blacklist",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "DecimalsTooLarge",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "FeeTooLarge",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "InvalidOrderData",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "LimitPriceNotSet",
         "type": "error"
       },
       {
@@ -25,7 +75,43 @@
       },
       {
         "inputs": [],
+        "name": "OrderCancellationInitiated",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "OrderFillBelowLimitPrice",
+        "type": "error"
+      },
+      {
+        "inputs": [],
         "name": "OrderNotFound",
+        "type": "error"
+      },
+      {
+        "inputs": [],
+        "name": "OrderTypeMismatch",
+        "type": "error"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "x",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "y",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "denominator",
+            "type": "uint256"
+          }
+        ],
+        "name": "PRBMath_MulDiv_Overflow",
         "type": "error"
       },
       {
@@ -47,48 +133,16 @@
         "anonymous": false,
         "inputs": [
           {
-            "indexed": false,
-            "internalType": "address",
-            "name": "previousAdmin",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "address",
-            "name": "newAdmin",
-            "type": "address"
-          }
-        ],
-        "name": "AdminChanged",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "beacon",
-            "type": "address"
-          }
-        ],
-        "name": "BeaconUpgraded",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
-          },
-          {
             "indexed": true,
             "internalType": "address",
             "name": "recipient",
             "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           }
         ],
         "name": "CancelRequested",
@@ -149,12 +203,18 @@
         "inputs": [
           {
             "indexed": false,
-            "internalType": "uint8",
-            "name": "version",
-            "type": "uint8"
+            "internalType": "uint64",
+            "name": "perOrderFee",
+            "type": "uint64"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint24",
+            "name": "percentageFeeRate",
+            "type": "uint24"
           }
         ],
-        "name": "Initialized",
+        "name": "FeeSet",
         "type": "event"
       },
       {
@@ -162,15 +222,15 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
-          },
-          {
-            "indexed": true,
             "internalType": "address",
             "name": "recipient",
             "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           },
           {
             "indexed": false,
@@ -187,28 +247,15 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "contract IOrderFees",
-            "name": "orderFees",
-            "type": "address"
-          }
-        ],
-        "name": "OrderFeesSet",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
-          },
-          {
-            "indexed": true,
             "internalType": "address",
             "name": "recipient",
             "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           },
           {
             "indexed": false,
@@ -231,15 +278,15 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
-          },
-          {
-            "indexed": true,
             "internalType": "address",
             "name": "recipient",
             "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           }
         ],
         "name": "OrderFulfilled",
@@ -250,15 +297,15 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "bytes32",
-            "name": "id",
-            "type": "bytes32"
-          },
-          {
-            "indexed": true,
             "internalType": "address",
             "name": "recipient",
             "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           },
           {
             "components": [
@@ -283,7 +330,7 @@
                 "type": "bool"
               },
               {
-                "internalType": "enum IOrderBridge.OrderType",
+                "internalType": "enum IOrderProcessor.OrderType",
                 "name": "orderType",
                 "type": "uint8"
               },
@@ -303,26 +350,15 @@
                 "type": "uint256"
               },
               {
-                "internalType": "enum IOrderBridge.TIF",
+                "internalType": "enum IOrderProcessor.TIF",
                 "name": "tif",
                 "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "fee",
-                "type": "uint256"
               }
             ],
             "indexed": false,
-            "internalType": "struct IOrderBridge.Order",
+            "internalType": "struct IOrderProcessor.Order",
             "name": "order",
             "type": "tuple"
-          },
-          {
-            "indexed": false,
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
           }
         ],
         "name": "OrderRequested",
@@ -421,12 +457,12 @@
         "inputs": [
           {
             "indexed": true,
-            "internalType": "address",
-            "name": "treasury",
+            "internalType": "contract ITokenLockCheck",
+            "name": "tokenLockCheck",
             "type": "address"
           }
         ],
-        "name": "TreasurySet",
+        "name": "TokenLockCheckSet",
         "type": "event"
       },
       {
@@ -435,25 +471,12 @@
           {
             "indexed": true,
             "internalType": "address",
-            "name": "implementation",
+            "name": "treasury",
             "type": "address"
           }
         ],
-        "name": "Upgraded",
+        "name": "TreasurySet",
         "type": "event"
-      },
-      {
-        "inputs": [],
-        "name": "ADMIN_ROLE",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
       },
       {
         "inputs": [],
@@ -471,6 +494,19 @@
       {
         "inputs": [],
         "name": "DEFAULT_ADMIN_ROLE",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "FORWARDER_ROLE",
         "outputs": [
           {
             "internalType": "bytes32",
@@ -554,24 +590,44 @@
                 "type": "address"
               },
               {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderProcessor.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
                 "name": "price",
                 "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderProcessor.TIF",
+                "name": "tif",
+                "type": "uint8"
               }
             ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
+            "internalType": "struct IOrderProcessor.Order",
+            "name": "order",
             "type": "tuple"
           },
           {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           },
           {
             "internalType": "string",
@@ -582,6 +638,25 @@
         "name": "cancelOrder",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "bytes32",
+            "name": "id",
+            "type": "bytes32"
+          }
+        ],
+        "name": "cancelRequested",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -639,6 +714,30 @@
       {
         "inputs": [
           {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "escrowedBalanceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
             "components": [
               {
                 "internalType": "address",
@@ -656,24 +755,44 @@
                 "type": "address"
               },
               {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderProcessor.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
                 "name": "price",
                 "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderProcessor.TIF",
+                "name": "tif",
+                "type": "uint8"
               }
             ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
+            "internalType": "struct IOrderProcessor.Order",
+            "name": "order",
             "type": "tuple"
           },
           {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -699,11 +818,50 @@
             "type": "address"
           }
         ],
-        "name": "getFlatFeeForOrder",
+        "name": "getFeeRatesForOrder",
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "",
+            "name": "flatFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint24",
+            "name": "_percentageFeeRate",
+            "type": "uint24"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "orderValue",
+            "type": "uint256"
+          }
+        ],
+        "name": "getInputValueForOrderValue",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "inputValue",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "flatFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "percentageFee",
             "type": "uint256"
           }
         ],
@@ -713,66 +871,14 @@
       {
         "inputs": [
           {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "bool",
-                "name": "sell",
-                "type": "bool"
-              },
-              {
-                "internalType": "enum IOrderBridge.OrderType",
-                "name": "orderType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "assetTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "paymentTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              },
-              {
-                "internalType": "enum IOrderBridge.TIF",
-                "name": "tif",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "fee",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct IOrderBridge.Order",
-            "name": "order",
-            "type": "tuple"
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
           },
           {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           }
         ],
         "name": "getOrderId",
@@ -784,174 +890,6 @@
           }
         ],
         "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "quantityIn",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
-            "type": "tuple"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
-          }
-        ],
-        "name": "getOrderIdFromOrderRequest",
-        "outputs": [
-          {
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "bool",
-                "name": "sell",
-                "type": "bool"
-              },
-              {
-                "internalType": "enum IOrderBridge.OrderType",
-                "name": "orderType",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "assetTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "paymentTokenQuantity",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              },
-              {
-                "internalType": "enum IOrderBridge.TIF",
-                "name": "tif",
-                "type": "uint8"
-              },
-              {
-                "internalType": "uint256",
-                "name": "fee",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct IOrderBridge.Order",
-            "name": "order",
-            "type": "tuple"
-          }
-        ],
-        "name": "getOrderRequestForOrder",
-        "outputs": [
-          {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "quantityIn",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "",
-            "type": "tuple"
-          }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "getPercentageFeeForOrder",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -1056,24 +994,133 @@
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "owner",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "treasury_",
-            "type": "address"
-          },
-          {
-            "internalType": "contract IOrderFees",
-            "name": "orderFees_",
-            "type": "address"
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderProcessor.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderProcessor.TIF",
+                "name": "tif",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct IOrderProcessor.Order",
+            "name": "order",
+            "type": "tuple"
           }
         ],
-        "name": "initialize",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "hashOrder",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "assetToken",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "paymentToken",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderProcessor.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderProcessor.TIF",
+                "name": "tif",
+                "type": "uint8"
+              }
+            ],
+            "internalType": "struct IOrderProcessor.Order",
+            "name": "order",
+            "type": "tuple"
+          }
+        ],
+        "name": "hashOrderCalldata",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
         "type": "function"
       },
       {
@@ -1122,19 +1169,6 @@
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "orderFees",
-        "outputs": [
-          {
-            "internalType": "contract IOrderFees",
-            "name": "",
-            "type": "address"
           }
         ],
         "stateMutability": "view",
@@ -1204,12 +1238,25 @@
       },
       {
         "inputs": [],
-        "name": "proxiableUUID",
+        "name": "perOrderFee",
         "outputs": [
           {
-            "internalType": "bytes32",
+            "internalType": "uint64",
             "name": "",
-            "type": "bytes32"
+            "type": "uint64"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "percentageFeeRate",
+        "outputs": [
+          {
+            "internalType": "uint24",
+            "name": "",
+            "type": "uint24"
           }
         ],
         "stateMutability": "view",
@@ -1236,41 +1283,14 @@
       {
         "inputs": [
           {
-            "components": [
-              {
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "assetToken",
-                "type": "address"
-              },
-              {
-                "internalType": "address",
-                "name": "paymentToken",
-                "type": "address"
-              },
-              {
-                "internalType": "uint256",
-                "name": "quantityIn",
-                "type": "uint256"
-              },
-              {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-              }
-            ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
-            "type": "tuple"
+            "internalType": "address",
+            "name": "recipient",
+            "type": "address"
           },
           {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
           }
         ],
         "name": "requestCancel",
@@ -1298,28 +1318,49 @@
                 "type": "address"
               },
               {
+                "internalType": "bool",
+                "name": "sell",
+                "type": "bool"
+              },
+              {
+                "internalType": "enum IOrderProcessor.OrderType",
+                "name": "orderType",
+                "type": "uint8"
+              },
+              {
                 "internalType": "uint256",
-                "name": "quantityIn",
+                "name": "assetTokenQuantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "paymentTokenQuantity",
                 "type": "uint256"
               },
               {
                 "internalType": "uint256",
                 "name": "price",
                 "type": "uint256"
+              },
+              {
+                "internalType": "enum IOrderProcessor.TIF",
+                "name": "tif",
+                "type": "uint8"
               }
             ],
-            "internalType": "struct OrderProcessor.OrderRequest",
-            "name": "orderRequest",
+            "internalType": "struct IOrderProcessor.Order",
+            "name": "order",
             "type": "tuple"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "salt",
-            "type": "bytes32"
           }
         ],
         "name": "requestOrder",
-        "outputs": [],
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
         "stateMutability": "nonpayable",
         "type": "function"
       },
@@ -1356,6 +1397,11 @@
             "type": "address"
           },
           {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
             "internalType": "uint256",
             "name": "value",
             "type": "uint256"
@@ -1389,12 +1435,17 @@
       {
         "inputs": [
           {
-            "internalType": "contract IOrderFees",
-            "name": "fees",
-            "type": "address"
+            "internalType": "uint64",
+            "name": "_perOrderFee",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint24",
+            "name": "_percentageFeeRate",
+            "type": "uint24"
           }
         ],
-        "name": "setOrderFees",
+        "name": "setFees",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1408,6 +1459,19 @@
           }
         ],
         "name": "setOrdersPaused",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract ITokenLockCheck",
+            "name": "_tokenLockCheck",
+            "type": "address"
+          }
+        ],
+        "name": "setTokenLockCheck",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1446,6 +1510,19 @@
       },
       {
         "inputs": [],
+        "name": "tokenLockCheck",
+        "outputs": [
+          {
+            "internalType": "contract ITokenLockCheck",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
         "name": "treasury",
         "outputs": [
           {
@@ -1455,37 +1532,6 @@
           }
         ],
         "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newImplementation",
-            "type": "address"
-          }
-        ],
-        "name": "upgradeTo",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newImplementation",
-            "type": "address"
-          },
-          {
-            "internalType": "bytes",
-            "name": "data",
-            "type": "bytes"
-          }
-        ],
-        "name": "upgradeToAndCall",
-        "outputs": [],
-        "stateMutability": "payable",
         "type": "function"
       }
     ]

@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "networkAddresses": {
       "11155111": "0xEc694d36D3109c8eCCBDeC32f7723949CCfF1c8D",
+      "31337": "0xEc694d36D3109c8eCCBDeC32f7723949CCfF1c8D",
       "42161": "0xca1F1CB5eD09C33E6D618E476AcaF1C22525D636"
     },
     "abi": [
