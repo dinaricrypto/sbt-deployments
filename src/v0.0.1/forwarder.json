@@ -1,9 +1,9 @@
 {
-  "defaultAddress": "0xB47B9a05fC45eec35D9ECbB34aEE16d8Ac9D0D86",
+  "defaultAddress": "0xa3eD7CD9Ad3E0910E3fA355813F763634568ED37",
   "contractName": "Forwarder",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "networkAddresses": {
-    "42161": "0xB47B9a05fC45eec35D9ECbB34aEE16d8Ac9D0D86"
+    "42161": "0xa3eD7CD9Ad3E0910E3fA355813F763634568ED37"
   },
   "abi": [
     {
@@ -20,16 +20,6 @@
     {
       "inputs": [],
       "name": "ExpiredRequest",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "FeeTooHigh",
-      "type": "error"
-    },
-    {
-      "inputs": [],
-      "name": "ForwarderNotApprovedByProcessor",
       "type": "error"
     },
     {
@@ -60,6 +50,11 @@
     },
     {
       "inputs": [],
+      "name": "InvalidModuleAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
       "name": "InvalidShortString",
       "type": "error"
     },
@@ -70,33 +65,7 @@
     },
     {
       "inputs": [],
-      "name": "NotSupportedModule",
-      "type": "error"
-    },
-    {
-      "inputs": [],
       "name": "NotTrustedOracle",
-      "type": "error"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "x",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "y",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "denominator",
-          "type": "uint256"
-        }
-      ],
-      "name": "PRBMath_MulDiv_Overflow",
       "type": "error"
     },
     {
@@ -134,13 +103,26 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "gas",
-          "type": "uint256"
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyOrderIssuer",
+          "type": "address"
         }
       ],
-      "name": "CancellationGasCostUpdated",
+      "name": "BuyOrderIssuerSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "directBuyIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "DirectBuyIssuerSet",
       "type": "event"
     },
     {
@@ -155,11 +137,37 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "feeBps",
+          "name": "newFeeBps",
           "type": "uint256"
         }
       ],
       "name": "FeeUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "limitBuyIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "LimitBuyIssuerSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "limitSellProcessor",
+          "type": "address"
+        }
+      ],
+      "name": "LimitSellProcessorSet",
       "type": "event"
     },
     {
@@ -219,17 +227,11 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "module",
+          "name": "sellOrderProcessor",
           "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "bool",
-          "name": "isSupported",
-          "type": "bool"
         }
       ],
-      "name": "SupportedModuleSet",
+      "name": "SellOrderProcessorSet",
       "type": "event"
     },
     {
@@ -259,19 +261,6 @@
           "internalType": "bytes32",
           "name": "",
           "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "cancellationGasCost",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -325,9 +314,9 @@
       "name": "feeBps",
       "outputs": [
         {
-          "internalType": "uint16",
+          "internalType": "uint256",
           "name": "",
-          "type": "uint16"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -390,7 +379,7 @@
                   "type": "bytes"
                 }
               ],
-              "internalType": "struct IPriceAttestationConsumer.PriceAttestation",
+              "internalType": "struct PriceAttestationConsumer.PriceAttestation",
               "name": "paymentTokenOraclePrice",
               "type": "tuple"
             },
@@ -400,19 +389,13 @@
               "type": "bytes"
             }
           ],
-          "internalType": "struct IForwarder.ForwardRequest",
+          "internalType": "struct Forwarder.ForwardRequest",
           "name": "metaTx",
           "type": "tuple"
         }
       ],
       "name": "forwardFunctionCall",
-      "outputs": [
-        {
-          "internalType": "bytes",
-          "name": "result",
-          "type": "bytes"
-        }
-      ],
+      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
@@ -473,7 +456,7 @@
                   "type": "bytes"
                 }
               ],
-              "internalType": "struct IPriceAttestationConsumer.PriceAttestation",
+              "internalType": "struct PriceAttestationConsumer.PriceAttestation",
               "name": "paymentTokenOraclePrice",
               "type": "tuple"
             },
@@ -483,7 +466,7 @@
               "type": "bytes"
             }
           ],
-          "internalType": "struct IForwarder.ForwardRequest",
+          "internalType": "struct Forwarder.ForwardRequest",
           "name": "metaTx",
           "type": "tuple"
         }
@@ -500,19 +483,40 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "isRelayer",
+      "inputs": [],
+      "name": "getSupportedModules",
       "outputs": [
         {
-          "internalType": "bool",
+          "components": [
+            {
+              "internalType": "address",
+              "name": "buyOrderIssuer",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "directBuyIssuer",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "sellOrderProcessor",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "limitBuyIssuer",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "limitSellProcessor",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct Forwarder.SupportedModules",
           "name": "",
-          "type": "bool"
+          "type": "tuple"
         }
       ],
       "stateMutability": "view",
@@ -526,7 +530,7 @@
           "type": "address"
         }
       ],
-      "name": "isSupportedModule",
+      "name": "isRelayer",
       "outputs": [
         {
           "internalType": "bool",
@@ -602,7 +606,7 @@
           "type": "bytes32"
         }
       ],
-      "name": "orderSigner",
+      "name": "orderSigners",
       "outputs": [
         {
           "internalType": "address",
@@ -656,7 +660,7 @@
               "type": "bytes"
             }
           ],
-          "internalType": "struct IPriceAttestationConsumer.PriceAttestation",
+          "internalType": "struct PriceAttestationConsumer.PriceAttestation",
           "name": "attestation",
           "type": "tuple"
         }
@@ -688,29 +692,6 @@
     {
       "inputs": [],
       "name": "renounceOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract IERC20",
-          "name": "tokenContract",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "rescueERC20",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -761,12 +742,12 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "newCancellationGasCost",
-          "type": "uint256"
+          "internalType": "address",
+          "name": "buyOrderIssuer",
+          "type": "address"
         }
       ],
-      "name": "setCancellationGasCost",
+      "name": "setBuyOrderIssuer",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -774,12 +755,51 @@
     {
       "inputs": [
         {
-          "internalType": "uint16",
+          "internalType": "address",
+          "name": "directBuyIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "setDirectBuyIssuer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
           "name": "newFeeBps",
-          "type": "uint16"
+          "type": "uint256"
         }
       ],
       "name": "setFeeBps",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "limitBuyIssuer",
+          "type": "address"
+        }
+      ],
+      "name": "setLimitBuyIssuer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "limitSellProcessor",
+          "type": "address"
+        }
+      ],
+      "name": "setLimitSellProcessor",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -819,16 +839,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "module",
+          "name": "sellOrderProcessor",
           "type": "address"
-        },
-        {
-          "internalType": "bool",
-          "name": "isSupported",
-          "type": "bool"
         }
       ],
-      "name": "setSupportedModule",
+      "name": "setSellOrderProcessor",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -849,6 +864,39 @@
       "name": "setTrustedOracle",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "supportedModules",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "buyOrderIssuer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "directBuyIssuer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "sellOrderProcessor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "limitBuyIssuer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "limitSellProcessor",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
