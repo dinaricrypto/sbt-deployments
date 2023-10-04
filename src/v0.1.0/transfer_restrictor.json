@@ -1,22 +1,16 @@
 {
-  "defaultAddress": "0x57591E07eAB6c2B3BeE529586253217584316B2B",
-  "contractName": "TokenLockCheck",
+  "defaultAddress": "0xa030E2a6f377E59704A585748897a1Ddc5963cB1",
+  "contractName": "TransferRestrictor",
   "version": "0.1.0",
   "networkAddresses": {
-    "42161": "0x57591E07eAB6c2B3BeE529586253217584316B2B",
-    "11155111": "0xDE9925851f41B4A405f7C8A44DdaB399D861dC5b"
+    "11155111": "0xa030E2a6f377E59704A585748897a1Ddc5963cB1"
   },
   "abi": [
     {
       "inputs": [
         {
           "internalType": "address",
-          "name": "usdc",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "usdt",
+          "name": "owner",
           "type": "address"
         }
       ],
@@ -25,8 +19,27 @@
     },
     {
       "inputs": [],
-      "name": "NotContract",
+      "name": "AccountRestricted",
       "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferStarted",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -48,38 +61,47 @@
       "type": "event"
     },
     {
+      "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
           "internalType": "address",
-          "name": "",
+          "name": "account",
           "type": "address"
         }
       ],
-      "name": "callSelector",
-      "outputs": [
+      "name": "Restricted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
         {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
         }
       ],
-      "stateMutability": "view",
+      "name": "Unrestricted",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
         {
           "internalType": "address",
-          "name": "token",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "account",
+          "name": "",
           "type": "address"
         }
       ],
-      "name": "isTransferLocked",
+      "name": "isBlacklisted",
       "outputs": [
         {
           "internalType": "bool",
@@ -105,6 +127,19 @@
     },
     {
       "inputs": [],
+      "name": "pendingOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
@@ -114,29 +149,29 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "token",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
           "type": "address"
         }
       ],
-      "name": "setAsDShare",
+      "name": "requireNotRestricted",
       "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
         {
           "internalType": "address",
-          "name": "token",
+          "name": "account",
           "type": "address"
-        },
-        {
-          "internalType": "bytes4",
-          "name": "selector",
-          "type": "bytes4"
         }
       ],
-      "name": "setCallSelector",
+      "name": "restrict",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -150,6 +185,19 @@
         }
       ],
       "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "unrestrict",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

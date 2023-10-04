@@ -3,7 +3,8 @@
   "contractName": "SellProcessor",
   "version": "0.1.0",
   "networkAddresses": {
-    "42161": "0x70f2bd91390DF0A0662f7Ba322d8c166E89e4BE3"
+    "42161": "0x70f2bd91390DF0A0662f7Ba322d8c166E89e4BE3",
+    "11155111": "0x48Ec5D1671B11d7d283EE22fA1bD86857e4Ffb00"
   },
   "abi": [
     {

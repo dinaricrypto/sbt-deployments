@@ -3,7 +3,8 @@
   "contractName": "BuyUnlockedProcessor",
   "version": "0.1.0",
   "networkAddresses": {
-    "42161": "0xDd6DA6429c17eF9F9cF920Fb38B51Ec3695Ef2Ab"
+    "42161": "0xDd6DA6429c17eF9F9cF920Fb38B51Ec3695Ef2Ab",
+    "11155111": "0x06db46488b72Dd4eBDc30d0934428f0C9dA01591"
   },
   "abi": [
     {
