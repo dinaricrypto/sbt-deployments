@@ -3,7 +3,8 @@
   "contractName": "BuyProcessor",
   "version": "0.1.0",
   "networkAddresses": {
-    "42161": "0x4Ec42a1709e6245Ff0bdD5BA605BA7147a165A67"
+    "42161": "0x4Ec42a1709e6245Ff0bdD5BA605BA7147a165A67",
+    "11155111": "0xB63115C021d63df5d748de297b0c4561b82210Ff"
   },
   "abi": [
     {
