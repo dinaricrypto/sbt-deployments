@@ -1,9 +1,10 @@
 {
-  "defaultAddress": "0xa5D5F87DA8B58Bd41514754738fAE4C8c4419FB0",
+  "defaultAddress": "0xad20601C7a3212c7BbF2ACdFEDBAD99d803bC7F5",
   "contractName": "UpgradeableBeacon",
   "version": "0.3.1",
   "networkAddresses": {
-    "11155111": "0xa5D5F87DA8B58Bd41514754738fAE4C8c4419FB0"
+    "11155111": "0xa5D5F87DA8B58Bd41514754738fAE4C8c4419FB0",
+    "42161": "0xad20601C7a3212c7BbF2ACdFEDBAD99d803bC7F5"
   },
   "abi": [
     {

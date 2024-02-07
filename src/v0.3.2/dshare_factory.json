@@ -1,9 +1,10 @@
 {
-  "defaultAddress": "0x92289a641517BA65438605eF0EeCF5fFB08B597c",
+  "defaultAddress": "0xB4Ca72eA4d072C779254269FD56093D3ADf603b8",
   "contractName": "DShareFactory",
   "version": "0.3.2",
   "networkAddresses": {
-    "11155111": "0x92289a641517BA65438605eF0EeCF5fFB08B597c"
+    "11155111": "0x92289a641517BA65438605eF0EeCF5fFB08B597c",
+    "42161": "0xB4Ca72eA4d072C779254269FD56093D3ADf603b8"
   },
   "abi": [
     { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
