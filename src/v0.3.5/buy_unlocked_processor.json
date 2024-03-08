@@ -1,12 +1,9 @@
 {
-  "defaultAddress": "0x9108270b3537933A9C68e87dc129A43433D49a8C",
+  "defaultAddress": "0xeCabf4d8FDBb45eaBEd0Daf25FD690EAaA4D9a9E",
   "contractName": "BuyUnlockedProcessor",
-  "version": "0.3.1",
+  "version": "0.3.5",
   "networkAddresses": {
-    "1": "0xeCabf4d8FDBb45eaBEd0Daf25FD690EAaA4D9a9E",
-    "42161": "0x9108270b3537933A9C68e87dc129A43433D49a8C",
-    "81457": "0xBCE6410A175a1C9B1a25D38d7e1A900F8393BC4D",
-    "11155111": "0xce08F99b4E5c1f280dC7001f70307C8e3Fc2A81E"
+    "1": "0xeCabf4d8FDBb45eaBEd0Daf25FD690EAaA4D9a9E"
   },
   "abi": [
     {

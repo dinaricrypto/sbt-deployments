@@ -1,14 +1,12 @@
 {
-  "defaultAddress": "0x9108270b3537933A9C68e87dc129A43433D49a8C",
-  "contractName": "BuyUnlockedProcessor",
-  "version": "0.3.1",
+  "defaultAddress": "0x10448Db0dCfDdd75Dd3E48Ef2c116d4D2F11a66f",
+  "contractName": "OrderProcessor",
+  "version": "0.3.5",
   "networkAddresses": {
-    "1": "0xeCabf4d8FDBb45eaBEd0Daf25FD690EAaA4D9a9E",
-    "42161": "0x9108270b3537933A9C68e87dc129A43433D49a8C",
-    "81457": "0xBCE6410A175a1C9B1a25D38d7e1A900F8393BC4D",
-    "11155111": "0xce08F99b4E5c1f280dC7001f70307C8e3Fc2A81E"
+    "1": "0x10448Db0dCfDdd75Dd3E48Ef2c116d4D2F11a66f"
   },
   "abi": [
+    { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
     {
       "type": "function",
       "name": "ASSETTOKEN_ROLE",
@@ -319,15 +317,6 @@
         { "name": "", "type": "uint256", "internalType": "uint256" },
         { "name": "", "type": "uint24", "internalType": "uint24" }
       ],
-      "stateMutability": "view"
-    },
-    {
-      "type": "function",
-      "name": "getOrderEscrow",
-      "inputs": [
-        { "name": "id", "type": "uint256", "internalType": "uint256" }
-      ],
-      "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
       "stateMutability": "view"
     },
     {
@@ -701,70 +690,6 @@
     },
     {
       "type": "function",
-      "name": "returnEscrow",
-      "inputs": [
-        { "name": "id", "type": "uint256", "internalType": "uint256" },
-        {
-          "name": "order",
-          "type": "tuple",
-          "internalType": "struct IOrderProcessor.Order",
-          "components": [
-            {
-              "name": "recipient",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "assetToken",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "paymentToken",
-              "type": "address",
-              "internalType": "address"
-            },
-            { "name": "sell", "type": "bool", "internalType": "bool" },
-            {
-              "name": "orderType",
-              "type": "uint8",
-              "internalType": "enum IOrderProcessor.OrderType"
-            },
-            {
-              "name": "assetTokenQuantity",
-              "type": "uint256",
-              "internalType": "uint256"
-            },
-            {
-              "name": "paymentTokenQuantity",
-              "type": "uint256",
-              "internalType": "uint256"
-            },
-            { "name": "price", "type": "uint256", "internalType": "uint256" },
-            {
-              "name": "tif",
-              "type": "uint8",
-              "internalType": "enum IOrderProcessor.TIF"
-            },
-            {
-              "name": "splitRecipient",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "splitAmount",
-              "type": "uint256",
-              "internalType": "uint256"
-            }
-          ]
-        },
-        { "name": "amount", "type": "uint256", "internalType": "uint256" }
-      ],
-      "outputs": [],
-      "stateMutability": "nonpayable"
-    },
-    {
-      "type": "function",
       "name": "revokeRole",
       "inputs": [
         { "name": "role", "type": "bytes32", "internalType": "bytes32" },
@@ -926,70 +851,6 @@
     },
     {
       "type": "function",
-      "name": "takeEscrow",
-      "inputs": [
-        { "name": "id", "type": "uint256", "internalType": "uint256" },
-        {
-          "name": "order",
-          "type": "tuple",
-          "internalType": "struct IOrderProcessor.Order",
-          "components": [
-            {
-              "name": "recipient",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "assetToken",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "paymentToken",
-              "type": "address",
-              "internalType": "address"
-            },
-            { "name": "sell", "type": "bool", "internalType": "bool" },
-            {
-              "name": "orderType",
-              "type": "uint8",
-              "internalType": "enum IOrderProcessor.OrderType"
-            },
-            {
-              "name": "assetTokenQuantity",
-              "type": "uint256",
-              "internalType": "uint256"
-            },
-            {
-              "name": "paymentTokenQuantity",
-              "type": "uint256",
-              "internalType": "uint256"
-            },
-            { "name": "price", "type": "uint256", "internalType": "uint256" },
-            {
-              "name": "tif",
-              "type": "uint8",
-              "internalType": "enum IOrderProcessor.TIF"
-            },
-            {
-              "name": "splitRecipient",
-              "type": "address",
-              "internalType": "address"
-            },
-            {
-              "name": "splitAmount",
-              "type": "uint256",
-              "internalType": "uint256"
-            }
-          ]
-        },
-        { "name": "amount", "type": "uint256", "internalType": "uint256" }
-      ],
-      "outputs": [],
-      "stateMutability": "nonpayable"
-    },
-    {
-      "type": "function",
       "name": "tokenLockCheck",
       "inputs": [],
       "outputs": [
@@ -1087,56 +948,6 @@
           "type": "uint48",
           "indexed": false,
           "internalType": "uint48"
-        }
-      ],
-      "anonymous": false
-    },
-    {
-      "type": "event",
-      "name": "EscrowReturned",
-      "inputs": [
-        {
-          "name": "id",
-          "type": "uint256",
-          "indexed": true,
-          "internalType": "uint256"
-        },
-        {
-          "name": "requester",
-          "type": "address",
-          "indexed": true,
-          "internalType": "address"
-        },
-        {
-          "name": "amount",
-          "type": "uint256",
-          "indexed": false,
-          "internalType": "uint256"
-        }
-      ],
-      "anonymous": false
-    },
-    {
-      "type": "event",
-      "name": "EscrowTaken",
-      "inputs": [
-        {
-          "name": "id",
-          "type": "uint256",
-          "indexed": true,
-          "internalType": "uint256"
-        },
-        {
-          "name": "requester",
-          "type": "address",
-          "indexed": true,
-          "internalType": "address"
-        },
-        {
-          "name": "amount",
-          "type": "uint256",
-          "indexed": false,
-          "internalType": "uint256"
         }
       ],
       "anonymous": false
@@ -1577,7 +1388,6 @@
     { "type": "error", "name": "InvalidOrderData", "inputs": [] },
     { "type": "error", "name": "InvalidPrecision", "inputs": [] },
     { "type": "error", "name": "LimitPriceNotSet", "inputs": [] },
-    { "type": "error", "name": "NotBuyOrder", "inputs": [] },
     { "type": "error", "name": "NotInitializing", "inputs": [] },
     { "type": "error", "name": "NotRequester", "inputs": [] },
     { "type": "error", "name": "OrderCancellationInitiated", "inputs": [] },
@@ -1626,7 +1436,6 @@
         { "name": "slot", "type": "bytes32", "internalType": "bytes32" }
       ]
     },
-    { "type": "error", "name": "UnreturnedEscrow", "inputs": [] },
     {
       "type": "error",
       "name": "UnsupportedToken",
