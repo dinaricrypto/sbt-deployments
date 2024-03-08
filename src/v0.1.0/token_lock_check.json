@@ -3,7 +3,9 @@
   "contractName": "TokenLockCheck",
   "version": "0.1.0",
   "networkAddresses": {
+    "1": "0xc63ac73EcD95a2D6Cb313757378D6c16c760e712",
     "42161": "0x57591E07eAB6c2B3BeE529586253217584316B2B",
+    "81457": "0x7e599C828C42758be0A6336DC32334b8AFB6A8FC",
     "11155111": "0xDE9925851f41B4A405f7C8A44DdaB399D861dC5b"
   },
   "abi": [
