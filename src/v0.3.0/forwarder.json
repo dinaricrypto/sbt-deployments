@@ -3,8 +3,9 @@
   "contractName": "Forwarder",
   "version": "0.3.0",
   "networkAddresses": {
-    "11155111": "0xDfC5441EF5eEbf7bFa73B5420C57F42CC84f1B7f",
-    "42161": "0xC498E2715a9180e490Bb9e6776acdCbAEB748cC7"
+    "1": "0xB88f1C2973584A413B9B8780F6563a684bd31d52",
+    "42161": "0xC498E2715a9180e490Bb9e6776acdCbAEB748cC7",
+    "11155111": "0xDfC5441EF5eEbf7bFa73B5420C57F42CC84f1B7f"
   },
   "abi": [
     {
