@@ -3,7 +3,8 @@
   "contractName": "OrderProcessor",
   "version": "0.3.5",
   "networkAddresses": {
-    "1": "0x10448Db0dCfDdd75Dd3E48Ef2c116d4D2F11a66f"
+    "1": "0x10448Db0dCfDdd75Dd3E48Ef2c116d4D2F11a66f",
+    "11155111": "0xd419C64416F373d1BA31972e6c7e3B5A8d4F6218"
   },
   "abi": [
     { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
